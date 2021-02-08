@@ -49,13 +49,42 @@ namespace RobosVsDinosaurs
             Console.WriteLine();
         }
 
-        public void DealDamage(Dinosaur dino, Robot robo)
+        public bool DealDamage(Dinosaur dino, Robot robo)
         {
-            dino.Attack(robo);
+            if (dino.health > 0 && robo.health > 0)
+            {
+                dino.Attack(robo);
+                return true;
+            }
+            else
+            {
+                if (dino.health == 0)
+                {
+                    Console.WriteLine("This dino has already been incapacitated");
+                }
+                if (robo.health == 0)
+                {
+                    Console.WriteLine("This robot has already been incapacitated");
+                }
+                return false;
+            }
         }
-        public void DealDamage(Robot robo, Dinosaur dino)
+        public bool DealDamage(Robot robo, Dinosaur dino)
         {
-            robo.Attack(dino);
+            if (robo.health > 0 && dino.health > 0) {
+                robo.Attack(dino);
+                return true;
+            } else {
+                if (dino.health == 0)
+                {
+                    Console.WriteLine("This dino has already been incapacitated");
+                }
+                if (robo.health == 0)
+                {
+                    Console.WriteLine("This robot has already been incapacitated");
+                }
+                return false;
+            }
         }
 
         public bool GameEnded()
