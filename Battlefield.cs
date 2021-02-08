@@ -8,12 +8,12 @@ namespace RobosVsDinosaurs
 {
     class Battlefield
     {
-        public Fleet roboFleet;
+        public Fleet robotFleet;
         public Herd dinoHerd;
 
         public Battlefield()
         {
-            roboFleet = new Fleet();
+            robotFleet = new Fleet();
             dinoHerd = new Herd();
         }
 
@@ -35,7 +35,7 @@ namespace RobosVsDinosaurs
                     roboId = rand.Next(0, 1000);
                 }
                 roboNameHash.Add(roboId);
-                roboFleet.robos.Add(new Robot("Infantry" + roboId, rand.Next(1500, 2000), rand.Next(50, 100), new Weapon("Blaster", rand.Next(100, 200))));
+                robotFleet.robos.Add(new Robot("Infantry" + roboId, rand.Next(1500, 2000), rand.Next(50, 100), new Weapon("Blaster", rand.Next(100, 200))));
                 dinoHerd.dinos.Add(new Dinosaur(dinoTypes[rand.Next(0, dinoTypes.Length -1)], rand.Next(500, 1000), rand.Next(50, 100), rand.Next(100, 200)));
             }
         }
@@ -47,12 +47,12 @@ namespace RobosVsDinosaurs
                 Console.WriteLine("Dinosaur Herd:");
                 dinoHerd.PrintHerd();
                 Console.WriteLine("Robot Fleet:");
-                roboFleet.PrintFleet();
+                robotFleet.PrintFleet();
             } 
             else
             {
                 Console.WriteLine("Robot Fleet:");
-                roboFleet.PrintFleet();
+                robotFleet.PrintFleet();
                 Console.WriteLine("Dinosaur Herd:");
                 dinoHerd.PrintHerd();
             }
@@ -126,7 +126,7 @@ namespace RobosVsDinosaurs
             return robotArmyWipedOut || dinoArmyWipedOut;
         }
 
-        public bool playerMove(bool dino)
+        public bool PlayerMove(bool dino)
         {
             string attacker = "Robot";
             string defender = "Dinosaur";
@@ -185,21 +185,52 @@ namespace RobosVsDinosaurs
             }
             if (dino)
             {
-                return DealDamage(dinoHerd.dinos[combatantOne], roboFleet.robos[combatantTwo]);
+                return DealDamage(dinoHerd.dinos[combatantOne], robotFleet.robos[combatantTwo]);
             }
             else
             {
-                return DealDamage(roboFleet.robos[combatantTwo], dinoHerd.dinos[combatantOne]);
+                return DealDamage(robotFleet.robos[combatantTwo], dinoHerd.dinos[combatantOne]);
             }
         }
 
-        public bool npcRobot()
+        public bool NpcTurn(bool dino)
         {
-            return true;
-        }
+            string attacker = "Robot";
+            string defender = "Dinosaur";
+            if (dino)
+            {
+                attacker = "Dinosaur";
+                defender = "Robot";
+            }
+            Console.WriteLine("===========================");
+            Console.WriteLine($" NPC {attacker} fleet commander turn. ");
+            Console.WriteLine("===========================");
+            DisplayArmies(dino);
 
-        public bool npcDinosaur()
-        {
+            int combatantOne = -1;
+            int combatantTwo = -1;
+            if (dino)
+            {
+                combatantOne = dinoHerd.ReturnHealthyCombatant();
+                combatantTwo = robotFleet.ReturnHealthyCombatant();
+            }
+            else
+            {
+                combatantOne = robotFleet.ReturnHealthyCombatant();
+                combatantOne = dinoHerd.ReturnHealthyCombatant();
+            }
+            if (combatantOne < 0 || combatantTwo < 0)
+            {
+                return false;
+            }
+            if (dino)
+            {
+                return DealDamage(dinoHerd.dinos[combatantOne], robotFleet.robos[combatantTwo]);
+            }
+            else
+            {
+                return DealDamage(robotFleet.robos[combatantTwo], dinoHerd.dinos[combatantOne]);
+            }
             return true;
         }
 

@@ -23,5 +23,8 @@ namespace RobosVsDinosaurs
                 Console.WriteLine();
             }
         }
+        public int ReturnHealthyCombatant()
+        {
+        }
     }
 }

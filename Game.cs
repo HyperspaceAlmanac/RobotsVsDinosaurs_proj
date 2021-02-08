@@ -151,6 +151,25 @@ namespace RobosVsDinosaurs
         GameState NpcTurn(bool dino)
         {
             // ToDo
+            bool result = bf.NpcTurn(dino);
+            if (bf.GameEnded())
+            {
+                bf.DisplayWinner();
+                return GameState.GameOver;
+            }
+            else
+            {
+                // If input was good, next player's turn
+                if (result)
+                {
+                    playerOneTurn = !playerOneTurn;
+                }
+                else
+                {
+                    // Should never reach here, even if energy is drained per attack and every combatant runs out, GameEnded function should catch it
+                    Console.WriteLine("Something went wrong here");
+                }
+            }
             return GameState.TakeTurn;
         }
 
@@ -174,7 +193,7 @@ namespace RobosVsDinosaurs
 
         // Boolean passed in of is it dinosaur herd's turn to attack
         GameState PlayerTurn(bool dino) {
-            bool result = bf.playerMove(dino);
+            bool result = bf.PlayerMove(dino);
             // Check if game is over
             if (bf.GameEnded())
             {
