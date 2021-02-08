@@ -44,7 +44,7 @@ namespace RobosVsDinosaurs
         {
             Console.WriteLine("Robot Fleet:");
             roboFleet.PrintFleet();
-            Console.WriteLine("Dinosaur Herd");
+            Console.WriteLine("Dinosaur Herd:");
             dinoHerd.PrintHerd();
             Console.WriteLine();
         }
