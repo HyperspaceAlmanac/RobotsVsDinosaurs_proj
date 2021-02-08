@@ -51,6 +51,7 @@ namespace RobosVsDinosaurs
                     newState = WhoIsFirst();
                     break;
                 case GameState.TakeTurn:
+                    newState = TakeTurn();
                     break;
                 case GameState.GameOver:
                     break;
@@ -145,6 +146,65 @@ namespace RobosVsDinosaurs
                 return GameState.WhoGoesFirst;
             }
             return GameState.PickSide;
+        }
+        GameState NpcTurn(bool dino)
+        {
+            // ToDo
+            return GameState.TakeTurn;
+        }
+
+        // Boolean passed in of is it dinosaur herd's turn to attack
+        GameState PlayerTurn(bool dino) {
+            return GameState.TakeTurn;
+        }
+
+
+        // Where the action happens
+        public GameState TakeTurn()
+        {
+            // Consider all the cases of whose turn is it
+            if (vsNPC) {
+                // Consider conditions for NPC turn
+                // HumanPlayerDino = true, playerOneTurn = true, dinoFirst = true ===> (player, dino)
+                // HumanPlayerDino = true, playerOneTurn = true, dinoFirst = false ===> (npc, robot)
+                // HumanPlayerDino = true, playerOneTurn = false, dinoFirst = true ===> (npc, robot)
+                // HumanPlayerDino = true, playerOneTurn = false, dinoFirst = false ===> (player, dino)
+
+                // HumanPlayerDino = false, playerOneTurn = true, dinoFirst = true ===> (npc, dino)
+                // HumanPlayerDino = false, playerOneTurn = true, dinoFirst = false ===> (player, robot)
+                // HumanPlayerDino = false, playerOneTurn = false, dinoFirst = true ===> (player, robot)
+                // HumanPlayerDino = false, playerOneTurn = false, dinoFirst = false ===> (npc, dino)
+                if ((playerOneTurn && !dinoFirst) || (!playerOneTurn && dinoFirst))
+                {
+                    if (humanPlayerDino)
+                    {
+                        return NpcTurn(false);
+                    }
+                    else
+                    {
+                        return PlayerTurn(true);
+                    }
+                }
+                else
+                {
+                    if (humanPlayerDino)
+                    {
+                        return PlayerTurn(false);
+                    }
+                    else
+                    {
+                        return NpcTurn(true);
+                    }
+                }
+                
+                //return PlayerTurn((playerOneTurn && dinoFirst) || (!playerOneTurn && !dinoFirst));
+            }
+            else
+            {
+                // p1 turn + dinoFirst = true, p1 turn + dinoFirst = false
+                // not p1 turn + dinoFirst = false, not p1 turn + not dino = true
+                return PlayerTurn((playerOneTurn && dinoFirst) || (!playerOneTurn && !dinoFirst));
+            }
         }
     }
 }

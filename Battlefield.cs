@@ -108,6 +108,27 @@ namespace RobosVsDinosaurs
             return robotArmyWipedOut || dinoArmyWipedOut;
         }
 
+        public bool playerRobot()
+        {
+            Console.WriteLine("Robot fleet commander turn. Please choose next attack");
+            return true;
+        }
+        public bool playerDinosaur()
+        {
+            Console.WriteLine("Dinosaur herd commander turn. Please choose next attack");
+            return true;
+        }
+
+        public bool npcRobot()
+        {
+            return true;
+        }
+
+        public bool npcDinosaur()
+        {
+            return true;
+        }
+
         public void DisplayWinner()
         {
             foreach (Dinosaur dino in dinoHerd.dinos)
