@@ -20,7 +20,9 @@ namespace RobosVsDinosaurs
         public void AddRoboAndDinos()
         {
             // Randomly generate some stats
-            Random rand = new Random();
+            // Add in rngSeed to do same values for now
+            int rngSeed = 1000;
+            Random rand = new Random(rngSeed);
             HashSet<int> roboNameHash = new HashSet<int>();
             // Adding three basic dinos and robos
             for (int i = 0; i < 3; i++)
