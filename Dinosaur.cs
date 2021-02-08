@@ -8,5 +8,11 @@ namespace RobosVsDinosaurs
 {
     class Dinosaur
     {
+        string dinoType;
+        int health;
+        int energy;
+        // Will probably replace later with Attack class with type
+        int attackPower;
+
     }
 }
