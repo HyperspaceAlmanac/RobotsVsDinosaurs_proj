@@ -9,9 +9,19 @@ namespace RobosVsDinosaurs
     class Herd
     {
         public List<Dinosaur> dinos;
+        private Random rand;
 
         public Herd()
         {
+            Random rand;
+            if (Game.DEBUGRNG)
+            {
+                rand = new Random(Game.RNGSEED);
+            }
+            else
+            {
+                rand = new Random();
+            }
             dinos = new List<Dinosaur>();
         }
 
@@ -27,15 +37,6 @@ namespace RobosVsDinosaurs
 
         public int ReturnHealthyCombatant()
         {
-            Random rand;
-            if (Game.DEBUGRNG)
-            {
-                rand = new Random(Game.RNGSEED);
-            }
-            else
-            {
-                rand = new Random();
-            }
             List<int> healthyUnits = new List<int>();
             for (int i = 0; i < dinos.Count; i++)
             {

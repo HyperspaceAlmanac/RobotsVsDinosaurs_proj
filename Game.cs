@@ -177,24 +177,6 @@ namespace RobosVsDinosaurs
             return GameState.TakeTurn;
         }
 
-        public GameState GameOver()
-        {
-            Console.WriteLine("Play again? Please enter \"yes\" to play again, \"no\" or \"exit\" to exit");
-            string input = Console.ReadLine();
-            if (input == "yes")
-            {
-                return GameState.ChooseGameMode;
-            }
-            else if (input == "no" || input == "exit")
-            {
-                return GameState.Exit;
-            }
-            else
-            {
-                return GameState.GameOver;
-            }
-        }
-
         // Boolean passed in of is it dinosaur herd's turn to attack
         GameState PlayerTurn(bool dino) {
             bool result = bf.PlayerMove(dino);
@@ -217,6 +199,24 @@ namespace RobosVsDinosaurs
             return GameState.TakeTurn;
         }
 
+        public GameState GameOver()
+        {
+            Console.WriteLine("Play again? Please enter \"yes\" to play again, \"no\" or \"exit\" to exit");
+            string input = Console.ReadLine();
+            if (input == "yes")
+            {
+                return GameState.ChooseGameMode;
+            }
+            else if (input == "no" || input == "exit")
+            {
+                return GameState.Exit;
+            }
+            else
+            {
+                return GameState.GameOver;
+            }
+        }
+
 
         // Where the action happens
         public GameState TakeTurn()
@@ -233,26 +233,62 @@ namespace RobosVsDinosaurs
                 // HumanPlayerDino = false, playerOneTurn = true, dinoFirst = false ===> (player, robot)
                 // HumanPlayerDino = false, playerOneTurn = false, dinoFirst = true ===> (player, robot)
                 // HumanPlayerDino = false, playerOneTurn = false, dinoFirst = false ===> (npc, dino)
-                if ((playerOneTurn && !dinoFirst) || (!playerOneTurn && dinoFirst))
+
+                // Too much effort to debug the elegant boolean logic structure.... just going to layout all the cases
+                if (humanPlayerDino)
                 {
-                    if (humanPlayerDino)
+                    if (playerOneTurn)
                     {
-                        return NpcTurn(false);
-                    }
-                    else
-                    {
-                        return PlayerTurn(true);
+                        // dinosaurs went first, dinosaur is player 1, the person is playing dinosaur => player + dino
+                        if (dinoFirst)
+                        {
+                            return PlayerTurn(true);
+                        }
+                        // robot is going first thus dino is player 2, and it is currently robot player turn = > NPC + robot
+                        else
+                        {
+                            return NpcTurn(false);
+                        }
+                    } else {
+                        // Dinosuar went first, but it is player 2's turn.  => NPC + robot
+                        if (dinoFirst)
+                        {
+                            return NpcTurn(false);
+                        }
+                        // Dinosaur went second, and it is player 2's turn => player + dino
+                        else
+                        {
+                            return PlayerTurn(true);
+                        }
                     }
                 }
                 else
                 {
-                    if (humanPlayerDino)
+                    if (playerOneTurn)
                     {
-                        return PlayerTurn(false);
+                        // Player 1's turn, dinosaur is going first, person is not playing dino => NPC + dino
+                        if (dinoFirst)
+                        {
+                            return NpcTurn(true);
+                        }
+                        else
+                        // Player 1's turn, robot is first = > player + robot
+                        {
+                            return PlayerTurn(false);
+                        }
                     }
                     else
                     {
-                        return NpcTurn(true);
+                        // Player 2's turn, dinosaur went first => player + robot
+                        if (dinoFirst)
+                        {
+                            return PlayerTurn(false);
+                        }
+                        // Player 2's turn, dinosaur went second => NPC + dino
+                        else
+                        {
+                            return NpcTurn(true);
+                        }
                     }
                 }
                 

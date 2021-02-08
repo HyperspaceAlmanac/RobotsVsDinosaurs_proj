@@ -9,8 +9,18 @@ namespace RobosVsDinosaurs
     class Fleet
     {
         public List<Robot> robots;
+        private Random rand;
         public Fleet()
         {
+            Random rand;
+            if (Game.DEBUGRNG)
+            {
+                rand = new Random(Game.RNGSEED);
+            }
+            else
+            {
+                rand = new Random();
+            }
             robots = new List<Robot>();
         }
 
@@ -25,15 +35,6 @@ namespace RobosVsDinosaurs
         }
         public int ReturnHealthyCombatant()
         {
-            Random rand;
-            if (Game.DEBUGRNG)
-            {
-                rand = new Random(Game.RNGSEED);
-            }
-            else
-            {
-                rand = new Random();
-            }
             List<int> healthyUnits = new List<int>();
             for (int i = 0; i < robots.Count; i++)
             {

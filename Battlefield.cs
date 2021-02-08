@@ -142,7 +142,7 @@ namespace RobosVsDinosaurs
                 defender = "Robot";
             }
             Console.WriteLine("===========================");
-            Console.WriteLine($"{attacker} fleet commander turn. ");
+            Console.WriteLine($"{attacker} " + (dino ? "Herd" : "Fleet") + " commander turn. ");
             Console.WriteLine("===========================");
             DisplayArmies(dino);
             Console.WriteLine($"Please choose a {attacker} to attack with");
@@ -210,7 +210,7 @@ namespace RobosVsDinosaurs
                 defender = "Robot";
             }
             Console.WriteLine("===========================");
-            Console.WriteLine($" NPC {attacker} fleet commander turn. ");
+            Console.WriteLine($" NPC {attacker} " + (dino ? "Herd" : "Fleet") + " commander turn. ");
             Console.WriteLine("===========================");
             DisplayArmies(dino);
 
@@ -224,7 +224,7 @@ namespace RobosVsDinosaurs
             else
             {
                 combatantOne = robotFleet.ReturnHealthyCombatant();
-                combatantOne = dinoHerd.ReturnHealthyCombatant();
+                combatantTwo = dinoHerd.ReturnHealthyCombatant();
             }
             if (combatantOne < 0 || combatantTwo < 0)
             {
