@@ -42,7 +42,7 @@ namespace RobosVsDinosaurs
                     roboId = rand.Next(0, 1000);
                 }
                 roboNameHash.Add(roboId);
-                robotFleet.robos.Add(new Robot("Infantry" + roboId, rand.Next(1500, 2000), rand.Next(50, 100), new Weapon("Blaster", rand.Next(100, 200))));
+                robotFleet.robots.Add(new Robot("Infantry" + roboId, rand.Next(1500, 2000), rand.Next(50, 100), new Weapon("Blaster", rand.Next(100, 200))));
                 dinoHerd.dinos.Add(new Dinosaur(dinoTypes[rand.Next(0, dinoTypes.Length -1)], rand.Next(500, 1000), rand.Next(50, 100), rand.Next(100, 200)));
             }
         }
@@ -192,11 +192,11 @@ namespace RobosVsDinosaurs
             }
             if (dino)
             {
-                return DealDamage(dinoHerd.dinos[combatantOne], robotFleet.robos[combatantTwo]);
+                return DealDamage(dinoHerd.dinos[combatantOne], robotFleet.robots[combatantTwo]);
             }
             else
             {
-                return DealDamage(robotFleet.robos[combatantTwo], dinoHerd.dinos[combatantOne]);
+                return DealDamage(robotFleet.robots[combatantTwo], dinoHerd.dinos[combatantOne]);
             }
         }
 
@@ -233,11 +233,11 @@ namespace RobosVsDinosaurs
             }
             if (dino)
             {
-                return DealDamage(dinoHerd.dinos[combatantOne], robotFleet.robos[combatantTwo]);
+                return DealDamage(dinoHerd.dinos[combatantOne], robotFleet.robots[combatantTwo]);
             }
             else
             {
-                return DealDamage(robotFleet.robos[combatantTwo], dinoHerd.dinos[combatantOne]);
+                return DealDamage(robotFleet.robots[combatantTwo], dinoHerd.dinos[combatantOne]);
             }
         }
 

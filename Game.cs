@@ -81,7 +81,7 @@ namespace RobosVsDinosaurs
             dinoFirst = false;
             playerOneTurn = true;
             Console.WriteLine("Welcome to Robots vs Dinosaurs!");
-            Console.WriteLine("Please enter 1 for player vs player, and 2 for player vs NPC");
+            Console.WriteLine("Please enter 1 single player vs NPC,or 2 for player vs player");
             Console.WriteLine("You can enter \"exit\" at any time to exit the game");
             string input = Console.ReadLine();
             if (exitGame(input))
@@ -90,14 +90,14 @@ namespace RobosVsDinosaurs
             }
             if (input == "1")
             {
-                Console.WriteLine("You have selected player vs player");
-                return GameState.WhoGoesFirst;
-            }
-            else if (input == "2")
-            {
                 Console.WriteLine("You have selected player vs NPC");
                 vsNPC = true;
                 return GameState.PickSide;
+            }
+            else if (input == "2")
+            {
+                Console.WriteLine("You have selected player vs player");
+                return GameState.WhoGoesFirst;
             }
             Console.WriteLine("Invalid input, please try again");
             return GameState.ChooseGameMode;
@@ -134,7 +134,7 @@ namespace RobosVsDinosaurs
             }
         }
         public GameState PickSide() {
-            Console.WriteLine("Please enter 1 to play as commander of the dinosaur herd, or 2 to play as the commande of the robot fleet");
+            Console.WriteLine("Please enter 1 to play as commander of the dinosaur herd, or 2 to play as the commander of the robot fleet");
             string input = Console.ReadLine();
             if (exitGame(input))
             {

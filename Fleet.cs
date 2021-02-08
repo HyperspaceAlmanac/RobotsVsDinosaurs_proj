@@ -8,18 +8,18 @@ namespace RobosVsDinosaurs
 {
     class Fleet
     {
-        public List<Robot> robos;
+        public List<Robot> robots;
         public Fleet()
         {
-            robos = new List<Robot>();
+            robots = new List<Robot>();
         }
 
         public void PrintFleet()
         {
-            for (int i = 0; i < robos.Count; i++)
+            for (int i = 0; i < robots.Count; i++)
             {
                 Console.Write($"{i + 1}: ");
-                robos[i].Display();
+                robots[i].Display();
                 Console.WriteLine();
             }
         }
@@ -34,7 +34,26 @@ namespace RobosVsDinosaurs
             {
                 rand = new Random();
             }
-            return -1;
+            List<int> healthyUnits = new List<int>();
+            for (int i = 0; i < robots.Count; i++)
+            {
+                if (robots[i].health > 0)
+                {
+                    healthyUnits.Add(i);
+                }
+            }
+            if (healthyUnits.Count == 0)
+            {
+                return -1;
+            }
+            else if (healthyUnits.Count == 1)
+            {
+                return healthyUnits[0];
+            }
+            else
+            {
+                return healthyUnits[rand.Next(0, healthyUnits.Count - 1)];
+            }
 
         }
     }

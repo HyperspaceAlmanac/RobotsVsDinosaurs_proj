@@ -36,7 +36,26 @@ namespace RobosVsDinosaurs
             {
                 rand = new Random();
             }
-            return -1;
+            List<int> healthyUnits = new List<int>();
+            for (int i = 0; i < dinos.Count; i++)
+            {
+                if (dinos[i].health > 0)
+                {
+                    healthyUnits.Add(i);
+                }
+            }
+            if (healthyUnits.Count == 0)
+            {
+                return -1;
+            }
+            else if (healthyUnits.Count == 1)
+            {
+                return healthyUnits[0];
+            }
+            else
+            {
+                return healthyUnits[rand.Next(0, healthyUnits.Count - 1)];
+            }
         }
     }
 }
