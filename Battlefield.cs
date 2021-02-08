@@ -40,12 +40,22 @@ namespace RobosVsDinosaurs
             }
         }
 
-        public void DisplayArmies()
+        public void DisplayArmies(bool dinoFirst = true)
         {
-            Console.WriteLine("Robot Fleet:");
-            roboFleet.PrintFleet();
-            Console.WriteLine("Dinosaur Herd:");
-            dinoHerd.PrintHerd();
+            if (dinoFirst)
+            {
+                Console.WriteLine("Dinosaur Herd:");
+                dinoHerd.PrintHerd();
+                Console.WriteLine("Robot Fleet:");
+                roboFleet.PrintFleet();
+            } 
+            else
+            {
+                Console.WriteLine("Robot Fleet:");
+                roboFleet.PrintFleet();
+                Console.WriteLine("Dinosaur Herd:");
+                dinoHerd.PrintHerd();
+            }
             Console.WriteLine();
         }
 
@@ -60,11 +70,15 @@ namespace RobosVsDinosaurs
             {
                 if (dino.health == 0)
                 {
+                    Console.WriteLine("============");
                     Console.WriteLine("This dino has already been incapacitated");
+                    Console.WriteLine("============");
                 }
                 if (robo.health == 0)
                 {
+                    Console.WriteLine("============");
                     Console.WriteLine("This robot has already been incapacitated");
+                    Console.WriteLine("============");
                 }
                 return false;
             }
@@ -77,11 +91,15 @@ namespace RobosVsDinosaurs
             } else {
                 if (dino.health == 0)
                 {
+                    Console.WriteLine("============");
                     Console.WriteLine("This dino has already been incapacitated");
+                    Console.WriteLine("============");
                 }
                 if (robo.health == 0)
                 {
+                    Console.WriteLine("============");
                     Console.WriteLine("This robot has already been incapacitated");
+                    Console.WriteLine("============");
                 }
                 return false;
             }
@@ -116,8 +134,10 @@ namespace RobosVsDinosaurs
                 attacker = "Dinosaur";
                 defender = "Robot";
             }
+            Console.WriteLine("===========================");
             Console.WriteLine($"{attacker} fleet commander turn. ");
-            DisplayArmies();
+            Console.WriteLine("===========================");
+            DisplayArmies(dino);
             Console.WriteLine($"Please choose a {attacker} to attack with");
             bool inputError = false;
             // Code will return early if these are not set, but need to add default value to compile
@@ -138,7 +158,9 @@ namespace RobosVsDinosaurs
             }
             if (inputError)
             {
-                Console.WriteLine($"Invalid {attacker} selection");
+                Console.WriteLine("============");
+                Console.WriteLine($"Invalid attacking {attacker} selection, Please try again");
+                Console.WriteLine("============");
                 return false;
             }
             Console.WriteLine($"Please choose a {defender} to attack");
@@ -156,7 +178,9 @@ namespace RobosVsDinosaurs
             }
             if (inputError)
             {
-                Console.WriteLine($"Invalid {defender} selection");
+                Console.WriteLine("============");
+                Console.WriteLine($"Invalid defending {defender} selection, Please try again");
+                Console.WriteLine("============");
                 return false;
             }
             if (dino)

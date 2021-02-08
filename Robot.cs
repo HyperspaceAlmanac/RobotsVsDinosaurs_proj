@@ -8,7 +8,7 @@ namespace RobosVsDinosaurs
 {
     class Robot
     {
-        string name;
+        public string name;
         public int health;
         int powerLevel;
         Weapon weapon;
@@ -25,17 +25,23 @@ namespace RobosVsDinosaurs
         {
             if (dino.health > this.weapon.attackPower)
             {
+                Console.WriteLine("============");
+                Console.WriteLine($"{name} used {weapon.attackType} to dealt {weapon.attackPower} damage to {dino.dinoType}!");
+                Console.WriteLine("============");
                 dino.health -= this.weapon.attackPower;
             }
             else
             {
+                Console.WriteLine("============");
+                Console.WriteLine($"{name} used {weapon.attackType} to dealt {dino.health} damage to {dino.dinoType}!");
+                Console.WriteLine("============");
                 dino.health = 0;
             }
         }
 
         public void Display()
         {
-            Console.WriteLine($"RoboName: {name}, health: {health}, powerLevel: {powerLevel}, weaponType: {weapon.attackType}, weaponPower: {weapon.attackPower}");
+            Console.Write($"RoboName: {name}, health: {health}, powerLevel: {powerLevel}, weaponType: {weapon.attackType}, weaponPower: {weapon.attackPower}");
         }
     }
 }
