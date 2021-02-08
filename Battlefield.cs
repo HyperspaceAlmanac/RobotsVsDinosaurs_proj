@@ -42,9 +42,9 @@ namespace RobosVsDinosaurs
 
         public void DisplayArmies()
         {
-            Console.WriteLine("Robot army:");
+            Console.WriteLine("Robot Fleet:");
             roboFleet.PrintFleet();
-            Console.WriteLine();
+            Console.WriteLine("Dinosaur Herd");
             dinoHerd.PrintHerd();
             Console.WriteLine();
         }
@@ -58,5 +58,39 @@ namespace RobosVsDinosaurs
             robo.Attack(dino);
         }
 
+        public bool GameEnded()
+        {
+            bool dinoArmyWipedOut = true;
+            foreach (Dinosaur dino in dinoHerd.dinos)
+            {
+                if (dino.health > 0)
+                {
+                    dinoArmyWipedOut = false;
+                }
+            }
+            bool robotArmyWipedOut = true;
+            foreach (Dinosaur dino in dinoHerd.dinos)
+            {
+                if (dino.health > 0)
+                {
+                    robotArmyWipedOut = false;
+                }
+            }
+            return robotArmyWipedOut || dinoArmyWipedOut;
+        }
+
+        public void DisplayWinner()
+        {
+            foreach (Dinosaur dino in dinoHerd.dinos)
+            {
+                if (dino.health > 0)
+                {
+                    Console.WriteLine("The dinosaur herd is victorious!");
+                    return;
+                }
+            }
+            // Could probably check robot health here just to be sure
+            Console.WriteLine("The robot fleet is victorious!");
+        }
     }
 }
