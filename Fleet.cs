@@ -8,7 +8,7 @@ namespace RobosVsDinosaurs
 {
     class Fleet
     {
-        List<Robot> robos;
+        public List<Robot> robos;
         public Fleet()
         {
             robos = new List<Robot>();

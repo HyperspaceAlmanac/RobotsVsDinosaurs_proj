@@ -13,6 +13,12 @@ namespace RobosVsDinosaurs
         int powerLevel;
         Weapon weapon;
 
-
+        public Robot(string name, int health, int powerLevel, Weapon weapon)
+        {
+            this.name = name;
+            this.health = health;
+            this.powerLevel = powerLevel;
+            this.weapon = weapon;
+        }
     }
 }

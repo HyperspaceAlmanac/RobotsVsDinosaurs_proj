@@ -14,5 +14,12 @@ namespace RobosVsDinosaurs
         // Will probably replace later with Attack class with type
         int attackPower;
 
+        public Dinosaur(string dinoType, int health, int energy, int attackPower)
+        {
+            this.dinoType = dinoType;
+            this.health = health;
+            this.energy = energy;
+            this.attackPower = attackPower;
+        }
     }
 }
