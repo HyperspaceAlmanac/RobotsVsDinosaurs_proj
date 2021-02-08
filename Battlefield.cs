@@ -108,15 +108,65 @@ namespace RobosVsDinosaurs
             return robotArmyWipedOut || dinoArmyWipedOut;
         }
 
-        public bool playerRobot()
+        public bool playerMove(bool dino)
         {
-            Console.WriteLine("Robot fleet commander turn. Please choose next attack");
-            return true;
-        }
-        public bool playerDinosaur()
-        {
-            Console.WriteLine("Dinosaur herd commander turn. Please choose next attack");
-            return true;
+            string attacker = "Robot";
+            string defender = "Dinosaur";
+            if (dino) {
+                attacker = "Dinosaur";
+                defender = "Robot";
+            }
+            Console.WriteLine($"{attacker} fleet commander turn. ");
+            DisplayArmies();
+            Console.WriteLine($"Please choose a {attacker} to attack with");
+            bool inputError = false;
+            // Code will return early if these are not set, but need to add default value to compile
+            int combatantOne = 0;
+            int combatantTwo = 0;
+
+            string input = Console.ReadLine();
+            switch (input)
+            {
+                case "1":
+                case "2":
+                case "3":
+                    combatantOne = Convert.ToInt32(input) - 1;
+                    break;
+                default:
+                    inputError = true;
+                    break;
+            }
+            if (inputError)
+            {
+                Console.WriteLine($"Invalid {attacker} selection");
+                return false;
+            }
+            Console.WriteLine($"Please choose a {defender} to attack");
+            input = Console.ReadLine();
+            switch (input)
+            {
+                case "1":
+                case "2":
+                case "3":
+                    combatantTwo = Convert.ToInt32(input) - 1;
+                    break;
+                default:
+                    inputError = true;
+                    break;
+            }
+            if (inputError)
+            {
+                Console.WriteLine($"Invalid {defender} selection");
+                return false;
+            }
+            if (dino)
+            {
+                return DealDamage(dinoHerd.dinos[combatantOne], roboFleet.robos[combatantTwo]);
+            }
+            else
+            {
+                return DealDamage(roboFleet.robos[combatantTwo], dinoHerd.dinos[combatantOne]);
+            }
         }
 
         public bool npcRobot()

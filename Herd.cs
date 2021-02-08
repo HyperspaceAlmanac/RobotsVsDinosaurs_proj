@@ -17,9 +17,11 @@ namespace RobosVsDinosaurs
 
         public void PrintHerd()
         {
-            foreach (Dinosaur d in dinos)
+            for (int i = 0; i < dinos.Count; i++)
             {
-                d.Display();
+                Console.Write($"{i + 1}: ");
+                dinos[i].Display();
+                Console.WriteLine();
             }
         }
     }

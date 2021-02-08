@@ -16,9 +16,11 @@ namespace RobosVsDinosaurs
 
         public void PrintFleet()
         {
-            foreach (Robot r in robos)
+            for (int i = 0; i < robos.Count; i++)
             {
-                r.Display();
+                Console.Write($"{i + 1}: ");
+                robos[i].Display();
+                Console.WriteLine();
             }
         }
     }

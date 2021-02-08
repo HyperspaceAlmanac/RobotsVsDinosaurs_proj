@@ -54,6 +54,7 @@ namespace RobosVsDinosaurs
                     newState = TakeTurn();
                     break;
                 case GameState.GameOver:
+                    newState = GameOver();
                     break;
                 default:
                     Console.WriteLine("Something went wrong");
@@ -153,8 +154,43 @@ namespace RobosVsDinosaurs
             return GameState.TakeTurn;
         }
 
+        public GameState GameOver()
+        {
+            Console.WriteLine("Play again? Please enter \"yes\" to play again, \"no\" or \"exit\" to exit");
+            string input = Console.ReadLine();
+            if (input == "yes")
+            {
+                return GameState.ChooseGameMode;
+            }
+            else if (input == "no" || input == "exit")
+            {
+                return GameState.Exit;
+            }
+            else
+            {
+                return GameState.GameOver;
+            }
+        }
+
         // Boolean passed in of is it dinosaur herd's turn to attack
         GameState PlayerTurn(bool dino) {
+            bool result = bf.playerMove(dino);
+            // Check if game is over
+            if (bf.GameEnded())
+            {
+                bf.DisplayWinner();
+                return GameState.GameOver;
+            }
+            else
+            {
+                // If input was good, next player's turn
+                if (result)
+                {
+                    playerOneTurn = !playerOneTurn;
+                }
+            }
+            
+            // Game is not over, continue
             return GameState.TakeTurn;
         }
 
