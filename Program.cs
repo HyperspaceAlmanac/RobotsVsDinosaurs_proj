@@ -10,6 +10,10 @@ namespace RobosVsDinosaurs
     {
         static void Main(string[] args)
         {
+            Battlefield bf = new Battlefield();
+            bf.AddRoboAndDinos();
+            bf.DisplayArmies();
+            Console.WriteLine();
         }
     }
 }
