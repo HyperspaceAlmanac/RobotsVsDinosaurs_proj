@@ -9,7 +9,7 @@ namespace RobosVsDinosaurs
     class Dinosaur
     {
         string dinoType;
-        int health;
+        public int health;
         int energy;
         // Will probably replace later with Attack class with type
         int attackPower;
@@ -20,6 +20,18 @@ namespace RobosVsDinosaurs
             this.health = health;
             this.energy = energy;
             this.attackPower = attackPower;
+        }
+
+        public void Attack(Robot robot)
+        {
+            if (robot.health > this.attackPower)
+            {
+                robot.health -= this.attackPower;
+            }
+            else
+            {
+                robot.health = 0;
+            }
         }
 
         public void Display()

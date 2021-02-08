@@ -9,7 +9,7 @@ namespace RobosVsDinosaurs
     class Robot
     {
         string name;
-        int health;
+        public int health;
         int powerLevel;
         Weapon weapon;
 
@@ -19,6 +19,18 @@ namespace RobosVsDinosaurs
             this.health = health;
             this.powerLevel = powerLevel;
             this.weapon = weapon;
+        }
+
+        public void Attack(Dinosaur dino)
+        {
+            if (dino.health > this.weapon.attackPower)
+            {
+                dino.health -= this.weapon.attackPower;
+            }
+            else
+            {
+                dino.health = 0;
+            }
         }
 
         public void Display()
