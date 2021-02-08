@@ -8,5 +8,13 @@ namespace RobosVsDinosaurs
 {
     class Weapon
     {
+        string attackType;
+        int attackPower;
+
+        public Weapon(string atkType = "lazer blaster", int atkPower=100)
+        {
+            attackType = atkType;
+            attackPower = atkPower;
+        }
     }
 }
