@@ -13,7 +13,7 @@ namespace RobosVsDinosaurs
             Battlefield bf = new Battlefield();
             bf.AddRoboAndDinos();
             bf.DisplayArmies();
-            Console.WriteLine();
+            Console.ReadLine();
         }
     }
 }
