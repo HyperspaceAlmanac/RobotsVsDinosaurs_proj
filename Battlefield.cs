@@ -19,7 +19,21 @@ namespace RobosVsDinosaurs
 
         public void AddRoboAndDinos()
         {
-            
+            // Randomly generate some stats
+            Random rand = new Random();
+            HashSet<int> roboNameHash = new HashSet<int>();
+            // Adding three basic dinos and robos
+            for (int i = 0; i < 3; i++)
+            {
+                int roboId = rand.Next(0, 1000);
+                while (roboNameHash.Contains(roboId))
+                {
+                    roboId = rand.Next(0, 1000);
+                }
+                roboNameHash.Add(roboId);
+                roboFleet.robos.Add(new Robot("Infantry" + roboId, rand.Next(100, 200), rand.Next(50, 100), new Weapon()));
+                dinoFleet.dinos.Add(new Dinosaur("T-Rex", rand.Next(500, 1000), rand.Next(50, 100), rand.Next(200, 300)));
+            }
         }
     }
 }
