@@ -21,10 +21,10 @@ namespace RobosVsDinosaurs
             bf.AddRoboAndDinos();
             bf.DisplayArmies();
             Console.WriteLine("First dino attacks first robot");
-            bf.DealDamage(bf.dinoHerd.dinos[0], bf.roboFleet.robos[0]);
+            bf.DealDamage(bf.dinoHerd.dinos[0], bf.robotFleet.robos[0]);
             bf.DisplayArmies();
             Console.WriteLine("First robot attacks first dino");
-            bf.DealDamage(bf.roboFleet.robos[0], bf.dinoHerd.dinos[0]);
+            bf.DealDamage(bf.robotFleet.robos[0], bf.dinoHerd.dinos[0]);
             bf.DisplayArmies();
         }
     }

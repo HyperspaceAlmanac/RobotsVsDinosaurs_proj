@@ -27,7 +27,16 @@ namespace RobosVsDinosaurs
 
         public int ReturnHealthyCombatant()
         {
-
+            Random rand;
+            if (Game.DEBUGRNG)
+            {
+                rand = new Random(Game.RNGSEED);
+            }
+            else
+            {
+                rand = new Random();
+            }
+            return -1;
         }
     }
 }

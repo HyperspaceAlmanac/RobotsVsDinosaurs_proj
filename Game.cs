@@ -17,6 +17,10 @@ namespace RobosVsDinosaurs
     }
     class Game
     {
+        // save rngSeed here
+        public readonly static int RNGSEED = 100;
+        public readonly static bool DEBUGRNG = true;
+
         bool vsNPC;
         bool humanPlayerDino;
         bool dinoFirst;

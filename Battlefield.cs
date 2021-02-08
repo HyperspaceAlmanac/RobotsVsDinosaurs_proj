@@ -21,8 +21,15 @@ namespace RobosVsDinosaurs
         {
             // Randomly generate some stats
             // Add in rngSeed to do same values for now
-            int rngSeed = 1000;
-            Random rand = new Random(rngSeed);
+            Random rand;
+            if (Game.DEBUGRNG)
+            {
+                rand = new Random(Game.RNGSEED);
+            }
+            else
+            {
+                rand = new Random();
+            }
             HashSet<int> roboNameHash = new HashSet<int>();
             // Adding three basic dinos and robos
 
@@ -221,6 +228,7 @@ namespace RobosVsDinosaurs
             }
             if (combatantOne < 0 || combatantTwo < 0)
             {
+                Console.WriteLine("Should not reach here");
                 return false;
             }
             if (dino)
@@ -231,7 +239,6 @@ namespace RobosVsDinosaurs
             {
                 return DealDamage(robotFleet.robos[combatantTwo], dinoHerd.dinos[combatantOne]);
             }
-            return true;
         }
 
         public void DisplayWinner()
