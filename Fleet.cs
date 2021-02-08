@@ -13,5 +13,13 @@ namespace RobosVsDinosaurs
         {
             robos = new List<Robot>();
         }
+
+        public void PrintFleet()
+        {
+            foreach (Robot r in robos)
+            {
+                r.Display();
+            }
+        }
     }
 }

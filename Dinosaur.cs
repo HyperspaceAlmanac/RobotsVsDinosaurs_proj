@@ -21,5 +21,10 @@ namespace RobosVsDinosaurs
             this.energy = energy;
             this.attackPower = attackPower;
         }
+
+        public void Display()
+        {
+            Console.WriteLine($"Type: {dinoType}, health: {health}, energy: {energy}, attackPower: {attackPower}");
+        }
     }
 }

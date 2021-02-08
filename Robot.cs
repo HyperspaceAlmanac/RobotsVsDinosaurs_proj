@@ -20,5 +20,10 @@ namespace RobosVsDinosaurs
             this.powerLevel = powerLevel;
             this.weapon = weapon;
         }
+
+        public void Display()
+        {
+            Console.WriteLine($"RoboName: {name}, health: {health}, powerLevel: {powerLevel}, weaponType: {weapon.attackType}, weaponPower: {weapon.attackPower}");
+        }
     }
 }

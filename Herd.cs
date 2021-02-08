@@ -14,5 +14,13 @@ namespace RobosVsDinosaurs
         {
             dinos = new List<Dinosaur>();
         }
+
+        public void PrintHerd()
+        {
+            foreach (Dinosaur d in dinos)
+            {
+                d.Display();
+            }
+        }
     }
 }
