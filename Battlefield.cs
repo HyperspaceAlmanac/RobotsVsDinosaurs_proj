@@ -8,13 +8,13 @@ namespace RobosVsDinosaurs
 {
     class Battlefield
     {
-        Fleet robos;
-        Herd dinos;
+        Fleet roboFleet;
+        Herd dinoFleet;
 
         public Battlefield()
         {
-            robos = new Fleet();
-            dinos = new Herd();
+            roboFleet = new Fleet();
+            dinoFleet = new Herd();
         }
 
         public void AddRoboAndDinos()
