@@ -27,17 +27,17 @@ namespace RobosVsDinosaurs
             {
                 Console.WriteLine("============");
                 Console.WriteLine($"{name} used {weapon.attackType} to deal {weapon.attackPower} damage to {dino.dinoType}!");
+                dino.health -= weapon.attackPower;
                 Console.WriteLine($"{dino.dinoType} is now at {dino.health} health");
                 Console.WriteLine("============");
-                dino.health -= weapon.attackPower;
             }
             else
             {
                 Console.WriteLine("============");
                 Console.WriteLine($"{name} used {weapon.attackType} to deal {dino.health} damage to {dino.dinoType}!");
+                dino.health = 0;
                 Console.WriteLine($"{dino.dinoType} has been incapacitated");
                 Console.WriteLine("============");
-                dino.health = 0;
             }
         }
 

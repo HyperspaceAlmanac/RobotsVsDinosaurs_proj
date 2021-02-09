@@ -27,6 +27,7 @@ namespace RobosVsDinosaurs
         bool humanPlayerDino;
         bool dinoFirst;
         bool playerOneTurn;
+        bool npcSetWeapon;
         Battlefield bf;
 
         public void RunGame()
@@ -85,6 +86,7 @@ namespace RobosVsDinosaurs
             humanPlayerDino = false;
             dinoFirst = false;
             playerOneTurn = true;
+            npcSetWeapon = false;
             Console.WriteLine("===========================");
             Console.WriteLine("Welcome to Robots vs Dinosaurs!");
             Console.WriteLine("===========================");
@@ -174,7 +176,14 @@ namespace RobosVsDinosaurs
         }
         GameState NpcTurn(bool dino)
         {
-            // ToDo
+            // If NPC is playing as robots
+            if (!dino && ! npcSetWeapon)
+            {
+                bf.robotFleet.Equip(true);
+                npcSetWeapon = true;
+                Console.WriteLine("Please press \"Enter\" to continue");
+                Console.ReadLine();
+            }
             bool result = bf.NpcTurn(dino);
             if (bf.GameEnded())
             {

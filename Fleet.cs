@@ -41,7 +41,29 @@ namespace RobosVsDinosaurs
             return true;
         }
         // Select equipment for robot
-        public void Equip()
+        public void Equip(bool autoSelect = false)
+        {
+            if (autoSelect)
+            {
+                EquipNPC();       
+            }
+            else
+            {
+                EquipPlayer();
+            }
+        }
+        private void EquipNPC()
+        {
+            int weaponIndex;
+            Console.WriteLine("The NPC Robot Fleet Commander is equipping the army");
+            for (int i = 0; i < robots.Count; i++)
+            {
+                weaponIndex = Game.rand.Next(weapons.Count);
+                Console.WriteLine($"{robots[i].name} has been equiped with {weapons[weaponIndex].attackType} that has attack power of {weapons[weaponIndex].attackPower}");
+                robots[i].weapon = weapons[weaponIndex];
+            }
+        }
+        private void EquipPlayer() 
         {
             string str;
             bool done = false;
