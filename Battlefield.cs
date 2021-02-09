@@ -34,6 +34,7 @@ namespace RobosVsDinosaurs
                     roboId = Game.rand.Next(0, 1000);
                 }
                 roboNameHash.Add(roboId);
+                // customize values here
                 robotFleet.robots.Add(new Robot(roboTypes[Game.rand.Next(roboTypes.Length)] + roboId, Game.rand.Next(600, 801), 50, new Weapon()));
                 dinoHerd.dinos.Add(new Dinosaur(dinoTypes[Game.rand.Next(dinoTypes.Length)], Game.rand.Next(1200, 1601), 50, Game.rand.Next(101, 301)));
             }
@@ -67,7 +68,7 @@ namespace RobosVsDinosaurs
             }
             else
             {
-                if (dino.health == 0)
+                if (dino.health <= 0)
                 {
                     Console.WriteLine("============");
                     Console.WriteLine("This dino has already been incapacitated");
@@ -78,7 +79,7 @@ namespace RobosVsDinosaurs
                     Console.WriteLine("This dino does not have enough energy");
                     Console.WriteLine("============");
                 }
-                if (robo.health ==0)
+                if (robo.health <= 0)
                 {
                     Console.WriteLine("============");
                     Console.WriteLine("This robot has already been incapacitated");
@@ -93,7 +94,7 @@ namespace RobosVsDinosaurs
                 robo.Attack(dino);
                 return true;
             } else {
-                if (robo.health == 0)
+                if (robo.health <= 0)
                 {
                     Console.WriteLine("============");
                     Console.WriteLine("This robot has already been incapacitated");
@@ -105,7 +106,7 @@ namespace RobosVsDinosaurs
                     Console.WriteLine("This robot does not have enough power level");
                     Console.WriteLine("============");
                 }
-                if (dino.health == 0)
+                if (dino.health <= 0)
                 {
                     Console.WriteLine("============");
                     Console.WriteLine("This dino has already been incapacitated");

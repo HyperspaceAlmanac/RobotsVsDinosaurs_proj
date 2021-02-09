@@ -106,7 +106,7 @@ namespace RobosVsDinosaurs
                     sb.Append(", " + m.name + " " + m.damage);
                 }
             }
-            Console.Write($"Type: {dinoType}, health: {health}, energy: {energy}, available moves:{sb.ToString()}");
+            Console.Write($"Type: {dinoType}, health: {health}, energy: {energy}, attack power: {attackPower}, available moves:{sb.ToString()}");
         }
     }
 }
