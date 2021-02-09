@@ -33,8 +33,9 @@ namespace RobosVsDinosaurs
             {
                 Console.WriteLine("============");
                 Console.WriteLine($"{dinoType} used {move.name} to deal {move.damage} damage to {robot.name}!");
+                int oldHealth = robot.health;
                 robot.health -= move.damage;
-                Console.WriteLine($"{robot.name} is now at {robot.health} health");
+                Console.WriteLine($"{robot.name} went from {oldHealth} down to {robot.health} health");
                 Console.WriteLine("============");
             }
             else

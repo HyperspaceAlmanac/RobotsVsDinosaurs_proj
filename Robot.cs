@@ -27,8 +27,9 @@ namespace RobosVsDinosaurs
             {
                 Console.WriteLine("============");
                 Console.WriteLine($"{name} used {weapon.attackType} to deal {weapon.attackPower} damage to {dino.dinoType}!");
+                int oldHealth = dino.health;
                 dino.health -= weapon.attackPower;
-                Console.WriteLine($"{dino.dinoType} is now at {dino.health} health");
+                Console.WriteLine($"{dino.dinoType} went from {oldHealth} down to {dino.health} health");
                 Console.WriteLine("============");
             }
             else
