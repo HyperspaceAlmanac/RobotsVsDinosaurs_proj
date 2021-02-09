@@ -10,7 +10,7 @@ namespace RobosVsDinosaurs
     {
         public string dinoType;
         public int health;
-        int energy;
+        public int energy;
         // Will probably replace later with Attack class with type
         int attackPower;
         Move[] moves = new Move[3];
@@ -29,12 +29,15 @@ namespace RobosVsDinosaurs
 
         public void Attack(Robot robot, Move move)
         {
+            int oldEnergy = energy;
+            energy -= 10;
             if (robot.health > move.damage)
             {
                 Console.WriteLine("============");
                 Console.WriteLine($"{dinoType} used {move.name} to deal {move.damage} damage to {robot.name}!");
                 int oldHealth = robot.health;
                 robot.health -= move.damage;
+                Console.WriteLine($"{dinoType} went from {oldEnergy} down to {energy} energy!");
                 Console.WriteLine($"{robot.name} went from {oldHealth} down to {robot.health} health");
                 Console.WriteLine("============");
             }
@@ -43,6 +46,7 @@ namespace RobosVsDinosaurs
                 Console.WriteLine("============");
                 Console.WriteLine($"{dinoType} used {move.name} to deal {robot.health} damage to {robot.name}!");
                 robot.health = 0;
+                Console.WriteLine($"{dinoType} went from {oldEnergy} down to {energy} energy!");
                 Console.WriteLine($"{robot.name} has been incapacitated");
                 Console.WriteLine("============");
             }

@@ -34,8 +34,8 @@ namespace RobosVsDinosaurs
                     roboId = Game.rand.Next(0, 1000);
                 }
                 roboNameHash.Add(roboId);
-                robotFleet.robots.Add(new Robot(roboTypes[Game.rand.Next(roboTypes.Length)] + roboId, Game.rand.Next(600, 801), 100, new Weapon()));
-                dinoHerd.dinos.Add(new Dinosaur(dinoTypes[Game.rand.Next(dinoTypes.Length)], Game.rand.Next(800, 901), 100, Game.rand.Next(101, 301)));
+                robotFleet.robots.Add(new Robot(roboTypes[Game.rand.Next(roboTypes.Length)] + roboId, Game.rand.Next(600, 801), 9, new Weapon()));
+                dinoHerd.dinos.Add(new Dinosaur(dinoTypes[Game.rand.Next(dinoTypes.Length)], Game.rand.Next(1200, 1601), 19, Game.rand.Next(101, 301)));
             }
         }
 
@@ -60,7 +60,7 @@ namespace RobosVsDinosaurs
 
         public bool DealDamage(Dinosaur dino, Robot robo, Move move)
         {
-            if (dino.health > 0 && robo.health > 0)
+            if (dino.health > 0 && robo.health > 0 && dino.energy > 9)
             {
                 dino.Attack(robo, move);
                 return true;
@@ -72,8 +72,13 @@ namespace RobosVsDinosaurs
                     Console.WriteLine("============");
                     Console.WriteLine("This dino has already been incapacitated");
                     Console.WriteLine("============");
+                } else if (dino.energy < 10)
+                {
+                    Console.WriteLine("============");
+                    Console.WriteLine("This dino does not have enough energy");
+                    Console.WriteLine("============");
                 }
-                if (robo.health == 0)
+                if (robo.health ==0)
                 {
                     Console.WriteLine("============");
                     Console.WriteLine("This robot has already been incapacitated");
@@ -84,29 +89,31 @@ namespace RobosVsDinosaurs
         }
         public bool DealDamage(Robot robo, Dinosaur dino)
         {
-            if (robo.health > 0 && dino.health > 0) {
+            if (robo.health > 0 && dino.health > 0 && robo.powerLevel > 9) {
                 robo.Attack(dino);
                 return true;
             } else {
-                if (dino.health == 0)
-                {
-                    Console.WriteLine("============");
-                    Console.WriteLine("This dino has already been incapacitated");
-                    Console.WriteLine("============");
-                }
                 if (robo.health == 0)
                 {
                     Console.WriteLine("============");
                     Console.WriteLine("This robot has already been incapacitated");
                     Console.WriteLine("============");
                 }
+                else if (robo.powerLevel < 10)
+                {
+                    Console.WriteLine("============");
+                    Console.WriteLine("This robot does not have enough power level");
+                    Console.WriteLine("============");
+                }
+                if (dino.health == 0)
+                {
+                    Console.WriteLine("============");
+                    Console.WriteLine("This dino has already been incapacitated");
+                    Console.WriteLine("============");
+                }
+
                 return false;
             }
-        }
-
-        public bool GameEnded()
-        {
-            return robotFleet.CannotContinue() || dinoHerd.CannotContinue();
         }
 
         public bool PlayerMove(bool dino)
@@ -121,6 +128,22 @@ namespace RobosVsDinosaurs
             Console.WriteLine($"{attacker} " + (dino ? "Herd" : "Fleet") + " commander turn. ");
             Console.WriteLine("===========================");
             DisplayArmies(dino);
+            if (dino)
+            {
+                if (dinoHerd.NoEnergy())
+                {
+                    Console.WriteLine("Dinosaur herd has no active unit with enough energy left");
+                    return true;
+                }
+            }
+            else
+            {
+                if (robotFleet.NoPower())
+                {
+                    Console.WriteLine("Robot fleet has no active unit with enough power left");
+                    return true;
+                }
+            }
             Console.WriteLine($"Please choose a {attacker}(1-3) to attack with, or enter \"skip\" to skip the turn");
             if (!dino)
             {
@@ -130,6 +153,8 @@ namespace RobosVsDinosaurs
             // Code will return early if these are not set, but need to add default value to compile
             int combatantOne = 0;
             int combatantTwo = 0;
+
+            // Check if there is enough energy for move
 
             string input = Console.ReadLine();
             switch (input)
@@ -196,7 +221,7 @@ namespace RobosVsDinosaurs
             }
             else
             {
-                return DealDamage(robotFleet.robots[combatantTwo], dinoHerd.dinos[combatantOne]);
+                return DealDamage(robotFleet.robots[combatantOne], dinoHerd.dinos[combatantTwo]);
             }
         }
 
@@ -218,13 +243,23 @@ namespace RobosVsDinosaurs
             int combatantTwo = -1;
             if (dino)
             {
-                combatantOne = dinoHerd.ReturnHealthyCombatant();
-                combatantTwo = robotFleet.ReturnHealthyCombatant();
+                if (dinoHerd.NoEnergy())
+                {
+                    Console.WriteLine("Could not perform action, none of the active dinosaurs have enough energy left");
+                    return true;
+                }
+                combatantOne = dinoHerd.CanAttack();
+                combatantTwo = robotFleet.CanBeAttacked();
             }
             else
             {
-                combatantOne = robotFleet.ReturnHealthyCombatant();
-                combatantTwo = dinoHerd.ReturnHealthyCombatant();
+                if (robotFleet.NoPower())
+                {
+                    Console.WriteLine("Could not perform action, none of the active robots have enough power left");
+                    return true;
+                }
+                combatantOne = robotFleet.CanAttack();
+                combatantTwo = dinoHerd.CanBeAttacked();
             }
             if (combatantOne < 0 || combatantTwo < 0)
             {
@@ -243,12 +278,32 @@ namespace RobosVsDinosaurs
             }
         }
 
+        public bool GameEnded()
+        {
+            // Need to check no health first for a win
+            if (dinoHerd.NoHealth() || robotFleet.NoHealth())
+            {
+                return true;
+            }
+            // Need to check if both side has run out of energy for a draw
+            if (dinoHerd.NoEnergy() && robotFleet.NoPower())
+            {
+                return true;
+            }
+            // There is available moves
+            else
+            {
+                return false;
+            }
+              
+        }
+
         public void DisplayWinner(bool npc = false, bool dino=false)
         {
             Console.WriteLine("===============================");
-            // there cannot be tie
-            if (dinoHerd.CannotContinue())
+            if (dinoHerd.NoHealth())
             {
+                Console.WriteLine("The dinosaur herd has run out of health");
                 Console.WriteLine("The robot fleet is victorious!");
                 if (npc)
                 {
@@ -262,8 +317,9 @@ namespace RobosVsDinosaurs
                     }
                 }
             }
-            else
+            else if (robotFleet.NoHealth())
             {
+                Console.WriteLine("The robot fleet has run out of health");
                 Console.WriteLine("The dinosaur herd is victorious!");
                 if (npc)
                 {
@@ -277,7 +333,12 @@ namespace RobosVsDinosaurs
                     }
                 }
             }
+            else
+            {
+                Console.WriteLine("Both sides have run out of energy. It is a stalmate");
+            }
             Console.WriteLine("===============================");
+
         }
     }
 }

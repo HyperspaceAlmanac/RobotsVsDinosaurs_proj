@@ -14,9 +14,9 @@ namespace RobosVsDinosaurs
         {
             robots = new List<Robot>();
             weapons = new List<Weapon>();
-            weapons.Add(new Weapon("Plasma Rifle", 150));
-            weapons.Add(new Weapon("Lazer sword", 200));
-            weapons.Add(new Weapon("Lazer Canon", 300));
+            weapons.Add(new Weapon("Plasma Rifle", 200));
+            weapons.Add(new Weapon("Lazer sword", 400));
+            weapons.Add(new Weapon("Lazer Canon", 600));
         }
 
         public void PrintFleet()
@@ -29,17 +29,6 @@ namespace RobosVsDinosaurs
             }
         }
 
-        public bool CannotContinue()
-        {
-            foreach (Robot robot in robots)
-            {
-                if (robot.health > 0)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
         // Select equipment for robot
         public void Equip(bool autoSelect = false)
         {
@@ -79,7 +68,7 @@ namespace RobosVsDinosaurs
                     case "1":
                     case "2":
                     case "3":
-                        robotIndex = Convert.ToInt32(str);
+                        robotIndex = Convert.ToInt32(str) - 1;
                         Console.WriteLine($"{robots[robotIndex].name} has been selected");
                         done = true;
                         break;
@@ -99,7 +88,7 @@ namespace RobosVsDinosaurs
                     case "1":
                     case "2":
                     case "3":
-                        weaponIndex = Convert.ToInt32(str);
+                        weaponIndex = Convert.ToInt32(str) - 1;
                         Console.WriteLine($"{weapons[weaponIndex].attackType} with attack power of {weapons[weaponIndex].attackPower} has been selected");
                         done = true;
                         break;
@@ -119,8 +108,72 @@ namespace RobosVsDinosaurs
                 Console.WriteLine($"{i + 1}: {weapons[i].attackType}, Attack Power: {weapons[i].attackPower}");
             }
         }
+        public bool NoHealth()
+        {
+            foreach (Robot robot in robots)
+            {
+                if (robot.health > 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public bool NoPower()
+        {
+            foreach (Robot robot in robots)
+            {
+                if (robot.health > 0 && robot.powerLevel > 9)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
-        public int ReturnHealthyCombatant()
+        public bool CannotContinue()
+        {
+            if (NoHealth())
+            {
+                return true;
+            }
+            if (NoPower())
+            {
+                return true;
+            }
+            // One dino with health and energy
+            return false;
+        }
+
+        // Need to separate combat ready combatants from ones that can be attacked
+        // Units with health and energy
+        public int CanAttack()
+        {
+            List<int> healthyUnits = new List<int>();
+            for (int i = 0; i < robots.Count; i++)
+            {
+                if (robots[i].health > 0 && robots[i].powerLevel > 9)
+                {
+                    healthyUnits.Add(i);
+                }
+            }
+            if (healthyUnits.Count == 0)
+            {
+                return -1;
+            }
+            else if (healthyUnits.Count == 1)
+            {
+                return healthyUnits[0];
+            }
+            else
+            {
+                // It returns value 0 to max, not including max
+                int value = Game.rand.Next(healthyUnits.Count);
+                return healthyUnits[value];
+            }
+        }
+        // units with Health
+        public int CanBeAttacked()
         {
             List<int> healthyUnits = new List<int>();
             for (int i = 0; i < robots.Count; i++)
@@ -144,7 +197,7 @@ namespace RobosVsDinosaurs
                 int value = Game.rand.Next(healthyUnits.Count);
                 return healthyUnits[value];
             }
-
         }
+
     }
 }

@@ -10,7 +10,7 @@ namespace RobosVsDinosaurs
     {
         public string name;
         public int health;
-        int powerLevel;
+        public int powerLevel;
         public Weapon weapon;
 
         public Robot(string name, int health, int powerLevel, Weapon weapon)
@@ -23,12 +23,15 @@ namespace RobosVsDinosaurs
 
         public void Attack(Dinosaur dino)
         {
+            int oldPower = powerLevel;
+            powerLevel -= 10;
             if (dino.health > weapon.attackPower)
             {
                 Console.WriteLine("============");
                 Console.WriteLine($"{name} used {weapon.attackType} to deal {weapon.attackPower} damage to {dino.dinoType}!");
                 int oldHealth = dino.health;
                 dino.health -= weapon.attackPower;
+                Console.WriteLine($"{name} went from a power level of {oldPower} down to {powerLevel}!");
                 Console.WriteLine($"{dino.dinoType} went from {oldHealth} down to {dino.health} health");
                 Console.WriteLine("============");
             }
@@ -37,6 +40,7 @@ namespace RobosVsDinosaurs
                 Console.WriteLine("============");
                 Console.WriteLine($"{name} used {weapon.attackType} to deal {dino.health} damage to {dino.dinoType}!");
                 dino.health = 0;
+                Console.WriteLine($"{name} went from a power level of {oldPower} down to {powerLevel}!");
                 Console.WriteLine($"{dino.dinoType} has been incapacitated");
                 Console.WriteLine("============");
             }
