@@ -34,8 +34,8 @@ namespace RobosVsDinosaurs
                     roboId = Game.rand.Next(0, 1000);
                 }
                 roboNameHash.Add(roboId);
-                robotFleet.robots.Add(new Robot(roboTypes[Game.rand.Next(roboTypes.Length)] + roboId, Game.rand.Next(600, 801), 9, new Weapon()));
-                dinoHerd.dinos.Add(new Dinosaur(dinoTypes[Game.rand.Next(dinoTypes.Length)], Game.rand.Next(1200, 1601), 19, Game.rand.Next(101, 301)));
+                robotFleet.robots.Add(new Robot(roboTypes[Game.rand.Next(roboTypes.Length)] + roboId, Game.rand.Next(600, 801), 50, new Weapon()));
+                dinoHerd.dinos.Add(new Dinosaur(dinoTypes[Game.rand.Next(dinoTypes.Length)], Game.rand.Next(1200, 1601), 50, Game.rand.Next(101, 301)));
             }
         }
 
