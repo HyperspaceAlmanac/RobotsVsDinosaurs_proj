@@ -23,24 +23,28 @@ namespace RobosVsDinosaurs
 
         public void Attack(Dinosaur dino)
         {
-            if (dino.health > this.weapon.attackPower)
+            if (dino.health > weapon.attackPower)
             {
                 Console.WriteLine("============");
-                Console.WriteLine($"{name} used {weapon.attackType} to dealt {weapon.attackPower} damage to {dino.dinoType}!");
+                Console.WriteLine($"{name} used {weapon.attackType} to deal {weapon.attackPower} damage to {dino.dinoType}!");
                 Console.WriteLine($"{dino.dinoType} is now at {dino.health} health");
                 Console.WriteLine("============");
-                dino.health -= this.weapon.attackPower;
+                dino.health -= weapon.attackPower;
             }
             else
             {
                 Console.WriteLine("============");
-                Console.WriteLine($"{name} used {weapon.attackType} to dealt {dino.health} damage to {dino.dinoType}!");
+                Console.WriteLine($"{name} used {weapon.attackType} to deal {dino.health} damage to {dino.dinoType}!");
                 Console.WriteLine($"{dino.dinoType} has been incapacitated");
                 Console.WriteLine("============");
                 dino.health = 0;
             }
         }
 
+        public void Equip(Weapon weapon)
+        {
+            this.weapon = weapon;
+        }
         public void Display()
         {
             Console.Write($"RoboName: {name}, health: {health}, powerLevel: {powerLevel}, weaponType: {weapon.attackType}, weaponPower: {weapon.attackPower}");

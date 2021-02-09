@@ -17,6 +17,7 @@ namespace RobosVsDinosaurs
 
         static void BattlefieldTest()
         {
+            /**
             Battlefield bf = new Battlefield();
             bf.AddRoboAndDinos();
             bf.DisplayArmies();
@@ -26,6 +27,7 @@ namespace RobosVsDinosaurs
             Console.WriteLine("First robot attacks first dino");
             bf.DealDamage(bf.robotFleet.robots[0], bf.dinoHerd.dinos[0]);
             bf.DisplayArmies();
+            **/
         }
     }
 }

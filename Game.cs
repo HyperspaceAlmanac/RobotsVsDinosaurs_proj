@@ -87,7 +87,7 @@ namespace RobosVsDinosaurs
             Console.WriteLine("Welcome to Robots vs Dinosaurs!");
             Console.WriteLine("===========================");
             Console.WriteLine("Please enter 1 for single player vs NPC,or 2 for player vs player");
-            Console.WriteLine("You can enter \"exit\" at any time to exit the game");
+            Console.WriteLine("You can type \"exit\" at any time to exit the game");
             string input = Console.ReadLine();
             if (exitGame(input))
             {
@@ -179,6 +179,8 @@ namespace RobosVsDinosaurs
                     Console.WriteLine("Something went wrong here");
                 }
             }
+            Console.WriteLine("NPC has taken its turn. Press Enter to continue");
+            Console.ReadLine();
             return GameState.TakeTurn;
         }
 
@@ -199,7 +201,9 @@ namespace RobosVsDinosaurs
                     playerOneTurn = !playerOneTurn;
                 }
             }
-            
+            Console.WriteLine("Press Enter to continue");
+            Console.ReadLine();
+
             // Game is not over, continue
             return GameState.TakeTurn;
         }

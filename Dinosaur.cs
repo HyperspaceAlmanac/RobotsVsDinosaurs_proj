@@ -22,20 +22,20 @@ namespace RobosVsDinosaurs
             this.attackPower = attackPower;
         }
 
-        public void Attack(Robot robot)
+        public void Attack(Robot robot, Move move)
         {
-            if (robot.health > this.attackPower)
+            if (robot.health > move.damage)
             {
                 Console.WriteLine("============");
-                Console.WriteLine($"{dinoType} dealt {attackPower} damage to {robot.name}!");
-                robot.health -= this.attackPower;
+                Console.WriteLine($"{dinoType} used {move.name} to deal {move.damage} damage to {robot.name}!");
+                robot.health -= move.damage;
                 Console.WriteLine($"{robot.name} is now at {robot.health} health");
                 Console.WriteLine("============");
             }
             else
             {
                 Console.WriteLine("============");
-                Console.WriteLine($"{dinoType} dealt {robot.health} damage to {robot.name}!");
+                Console.WriteLine($"{dinoType} used {move.name} to deal {robot.health} damage to {robot.name}!");
                 Console.WriteLine($"{robot.name} has been incapacitated");
                 Console.WriteLine("============");
                 robot.health = 0;

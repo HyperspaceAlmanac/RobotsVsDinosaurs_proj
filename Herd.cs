@@ -10,7 +10,7 @@ namespace RobosVsDinosaurs
     {
         public List<Dinosaur> dinos;
         private Random rand;
-        private PrehistoricDojo dojo;
+        private Move[] moves = new Move[3];
 
         public Herd()
         {
@@ -23,6 +23,10 @@ namespace RobosVsDinosaurs
                 rand = new Random();
             }
             dinos = new List<Dinosaur>();
+            moves = new Move[3];
+            moves[0] = new Move();
+            moves[1] = new Move("Tackle", 200);
+            moves[2] = new Move("Uppercut", 300);
         }
 
         public void PrintHerd()
@@ -46,6 +50,43 @@ namespace RobosVsDinosaurs
                 }
             }
             return true;
+        }
+
+        public Move GetMove(bool autoSelect=false)
+        {
+            if (autoSelect)
+            {
+                return moves[rand.Next(moves.Length)];
+            }
+            else
+            {
+                return AskForMove();
+            }
+        }
+
+        public Move AskForMove()
+        {
+            string input;
+            while (true)
+            {
+                Console.WriteLine("Please enter the move that the dinosaur should do");
+                for (int i = 0; i < moves.Length; i++)
+                {
+                    Console.WriteLine($" {i + 1}: {moves[i].name}, {moves[i].damage} damage");
+                }
+                input = Console.ReadLine();
+                switch (input)
+                {
+                    case "1":
+                    case "2":
+                    case "3":
+                        return moves[Convert.ToInt32(input) - 1];
+                    default:
+                        Console.WriteLine("Invalid input, please try again");
+                        break;
+                }
+            }
+
         }
 
         public int ReturnHealthyCombatant()

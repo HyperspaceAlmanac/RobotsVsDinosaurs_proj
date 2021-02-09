@@ -11,7 +11,7 @@ namespace RobosVsDinosaurs
         public string attackType;
         public int attackPower;
 
-        public Weapon(string atkType = "lazer blaster", int atkPower=100)
+        public Weapon(string atkType = "basic blaster", int atkPower=100)
         {
             attackType = atkType;
             attackPower = atkPower;

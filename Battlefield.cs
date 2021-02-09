@@ -42,8 +42,8 @@ namespace RobosVsDinosaurs
                     roboId = rand.Next(0, 1000);
                 }
                 roboNameHash.Add(roboId);
-                robotFleet.robots.Add(new Robot("Infantry" + roboId, rand.Next(600, 801), rand.Next(50, 100), new Weapon("Blaster", rand.Next(200, 301))));
-                dinoHerd.dinos.Add(new Dinosaur(dinoTypes[rand.Next(0, dinoTypes.Length -1)], rand.Next(800, 901), rand.Next(50, 100), rand.Next(101, 301)));
+                robotFleet.robots.Add(new Robot("Infantry" + roboId, rand.Next(600, 801), rand.Next(50, 100), new Weapon()));
+                dinoHerd.dinos.Add(new Dinosaur(dinoTypes[rand.Next(dinoTypes.Length)], rand.Next(800, 901), rand.Next(50, 100), rand.Next(101, 301)));
             }
         }
 
@@ -66,11 +66,11 @@ namespace RobosVsDinosaurs
             Console.WriteLine();
         }
 
-        public bool DealDamage(Dinosaur dino, Robot robo)
+        public bool DealDamage(Dinosaur dino, Robot robo, Move move)
         {
             if (dino.health > 0 && robo.health > 0)
             {
-                dino.Attack(robo);
+                dino.Attack(robo, move);
                 return true;
             }
             else
@@ -186,7 +186,8 @@ namespace RobosVsDinosaurs
             }
             if (dino)
             {
-                return DealDamage(dinoHerd.dinos[combatantOne], robotFleet.robots[combatantTwo]);
+                Move move = dinoHerd.GetMove();
+                return DealDamage(dinoHerd.dinos[combatantOne], robotFleet.robots[combatantTwo], move);
             }
             else
             {
@@ -227,7 +228,8 @@ namespace RobosVsDinosaurs
             }
             if (dino)
             {
-                return DealDamage(dinoHerd.dinos[combatantOne], robotFleet.robots[combatantTwo]);
+                // Randomly select a move from the list
+                return DealDamage(dinoHerd.dinos[combatantOne], robotFleet.robots[combatantTwo], dinoHerd.GetMove(true));
             }
             else
             {
