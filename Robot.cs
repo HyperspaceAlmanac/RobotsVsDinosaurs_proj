@@ -12,6 +12,7 @@ namespace RobosVsDinosaurs
         public int health;
         int powerLevel;
         Weapon weapon;
+        List<Weapon> weapons;
 
         public Robot(string name, int health, int powerLevel, Weapon weapon)
         {
@@ -19,6 +20,11 @@ namespace RobosVsDinosaurs
             this.health = health;
             this.powerLevel = powerLevel;
             this.weapon = weapon;
+
+            weapons = new List<Weapon>();
+            weapons.Add(new Weapon("Plasma Rifle", 150));
+            weapons.Add(new Weapon("Lazer sword", 200));
+            weapons.Add(new Weapon("Lazer Canon", 300));
         }
 
         public void Attack(Dinosaur dino)

@@ -9,23 +9,9 @@ namespace RobosVsDinosaurs
     class Fleet
     {
         public List<Robot> robots;
-        private Random rand;
-        private List<Weapon> weapons;
         public Fleet()
         {
-            if (Game.DEBUGRNG)
-            {
-                rand = new Random(Game.RNGSEED3);
-            }
-            else
-            {
-                rand = new Random();
-            }
             robots = new List<Robot>();
-            weapons = new List<Weapon>();
-            weapons.Add(new Weapon("Plasma Rifle", 150));
-            weapons.Add(new Weapon("Lazer sword", 200));
-            weapons.Add(new Weapon("Lazer Canon", 300));
         }
 
         public void PrintFleet()
@@ -70,7 +56,7 @@ namespace RobosVsDinosaurs
             else
             {
                 // It returns value 0 to max, not including max
-                int value = rand.Next(healthyUnits.Count);
+                int value = Game.rand.Next(healthyUnits.Count);
                 return healthyUnits[value];
             }
 

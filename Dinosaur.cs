@@ -13,6 +13,7 @@ namespace RobosVsDinosaurs
         int energy;
         // Will probably replace later with Attack class with type
         int attackPower;
+        Move[] moves = new Move[3];
 
         public Dinosaur(string dinoType, int health, int energy, int attackPower)
         {
@@ -20,6 +21,10 @@ namespace RobosVsDinosaurs
             this.health = health;
             this.energy = energy;
             this.attackPower = attackPower;
+            moves = new Move[3];
+            moves[0] = new Move();
+            moves[1] = new Move("Tackle", 200);
+            moves[2] = new Move("Uppercut", 300);
         }
 
         public void Attack(Robot robot, Move move)
@@ -42,9 +47,52 @@ namespace RobosVsDinosaurs
             }
         }
 
+        public Move GetMove(bool autoSelect = false)
+        {
+            if (autoSelect)
+            {
+                return moves[Game.rand.Next(moves.Length)];
+            }
+            else
+            {
+                return AskForMove();
+            }
+        }
+
+        public Move AskForMove()
+        {
+            string input;
+            while (true)
+            {
+                Console.WriteLine("Please enter the move that the dinosaur should do");
+                for (int i = 0; i < moves.Length; i++)
+                {
+                    Console.WriteLine($" {i + 1}: {moves[i].name}, {moves[i].damage} damage");
+                }
+                input = Console.ReadLine();
+                switch (input)
+                {
+                    case "1":
+                    case "2":
+                    case "3":
+                        return moves[Convert.ToInt32(input) - 1];
+                    default:
+                        Console.WriteLine("Invalid input, please try again");
+                        break;
+                }
+            }
+
+        }
+
         public void Display()
         {
-            Console.Write($"Type: {dinoType}, health: {health}, energy: {energy}, attackPower: {attackPower}");
+            StringBuilder sb = new StringBuilder();
+            
+            foreach (Move m in moves)
+            {
+                sb.Append(" " + m.name);
+            }
+            Console.Write($"Type: {dinoType}, health: {health}, energy: {energy}, available moves:{sb.ToString()}");
         }
     }
 }

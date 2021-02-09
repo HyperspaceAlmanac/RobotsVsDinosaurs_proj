@@ -18,9 +18,7 @@ namespace RobosVsDinosaurs
     class Game
     {
         // save rngSeed here
-        public readonly static int RNGSEED1 = 100;
-        public readonly static int RNGSEED2 = 200;
-        public readonly static int RNGSEED3 = 300;
+        public readonly static Random rand = new Random(100);
         // Set to false for completely random values
         public readonly static bool DEBUGRNG = true;
 

@@ -186,8 +186,8 @@ namespace RobosVsDinosaurs
             }
             if (dino)
             {
-                Move move = dinoHerd.GetMove();
-                return DealDamage(dinoHerd.dinos[combatantOne], robotFleet.robots[combatantTwo], move);
+                Dinosaur dinosaur = dinoHerd.dinos[combatantOne];
+                return DealDamage(dinosaur, robotFleet.robots[combatantTwo], dinosaur.GetMove());
             }
             else
             {
@@ -229,7 +229,8 @@ namespace RobosVsDinosaurs
             if (dino)
             {
                 // Randomly select a move from the list
-                return DealDamage(dinoHerd.dinos[combatantOne], robotFleet.robots[combatantTwo], dinoHerd.GetMove(true));
+                Dinosaur dinosaur = dinoHerd.dinos[combatantOne];
+                return DealDamage(dinosaur, robotFleet.robots[combatantTwo], dinosaur.GetMove(true));
             }
             else
             {
