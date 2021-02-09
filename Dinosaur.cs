@@ -28,13 +28,15 @@ namespace RobosVsDinosaurs
             {
                 Console.WriteLine("============");
                 Console.WriteLine($"{dinoType} dealt {attackPower} damage to {robot.name}!");
-                Console.WriteLine("============");
                 robot.health -= this.attackPower;
+                Console.WriteLine($"{robot.name} is now at {robot.health} health");
+                Console.WriteLine("============");
             }
             else
             {
                 Console.WriteLine("============");
                 Console.WriteLine($"{dinoType} dealt {robot.health} damage to {robot.name}!");
+                Console.WriteLine($"{robot.name} has been incapacitated");
                 Console.WriteLine("============");
                 robot.health = 0;
             }

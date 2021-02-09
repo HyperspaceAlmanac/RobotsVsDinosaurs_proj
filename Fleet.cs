@@ -12,10 +12,9 @@ namespace RobosVsDinosaurs
         private Random rand;
         public Fleet()
         {
-            Random rand;
             if (Game.DEBUGRNG)
             {
-                rand = new Random(Game.RNGSEED);
+                rand = new Random(Game.RNGSEED3);
             }
             else
             {
@@ -32,6 +31,18 @@ namespace RobosVsDinosaurs
                 robots[i].Display();
                 Console.WriteLine();
             }
+        }
+
+        public bool CannotContinue()
+        {
+            foreach (Robot robot in robots)
+            {
+                if (robot.health > 0)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
         public int ReturnHealthyCombatant()
         {
@@ -53,7 +64,9 @@ namespace RobosVsDinosaurs
             }
             else
             {
-                return healthyUnits[rand.Next(0, healthyUnits.Count - 1)];
+                // It returns value 0 to max, not including max
+                int value = rand.Next(healthyUnits.Count);
+                return healthyUnits[value];
             }
 
         }

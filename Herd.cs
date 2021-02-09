@@ -13,10 +13,9 @@ namespace RobosVsDinosaurs
 
         public Herd()
         {
-            Random rand;
             if (Game.DEBUGRNG)
             {
-                rand = new Random(Game.RNGSEED);
+                rand = new Random(Game.RNGSEED2);
             }
             else
             {
@@ -33,6 +32,19 @@ namespace RobosVsDinosaurs
                 dinos[i].Display();
                 Console.WriteLine();
             }
+        }
+
+        // Method to check if game is over. Start with checking health, can add energy check later for bonus
+        public bool CannotContinue()
+        {
+            foreach (Dinosaur dino in dinos)
+            {
+                if (dino.health > 0)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public int ReturnHealthyCombatant()
@@ -55,7 +67,9 @@ namespace RobosVsDinosaurs
             }
             else
             {
-                return healthyUnits[rand.Next(0, healthyUnits.Count - 1)];
+                // Looks Like Random 
+                int value = rand.Next(healthyUnits.Count);
+                return healthyUnits[value];
             }
         }
     }

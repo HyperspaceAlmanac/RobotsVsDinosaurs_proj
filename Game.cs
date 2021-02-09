@@ -18,7 +18,9 @@ namespace RobosVsDinosaurs
     class Game
     {
         // save rngSeed here
-        public readonly static int RNGSEED = 100;
+        public readonly static int RNGSEED1 = 100;
+        public readonly static int RNGSEED2 = 200;
+        public readonly static int RNGSEED3 = 300;
         public readonly static bool DEBUGRNG = true;
 
         bool vsNPC;
@@ -80,8 +82,10 @@ namespace RobosVsDinosaurs
             humanPlayerDino = false;
             dinoFirst = false;
             playerOneTurn = true;
+            Console.WriteLine("===========================");
             Console.WriteLine("Welcome to Robots vs Dinosaurs!");
-            Console.WriteLine("Please enter 1 single player vs NPC,or 2 for player vs player");
+            Console.WriteLine("===========================");
+            Console.WriteLine("Please enter 1 for single player vs NPC,or 2 for player vs player");
             Console.WriteLine("You can enter \"exit\" at any time to exit the game");
             string input = Console.ReadLine();
             if (exitGame(input))
@@ -158,7 +162,7 @@ namespace RobosVsDinosaurs
             bool result = bf.NpcTurn(dino);
             if (bf.GameEnded())
             {
-                bf.DisplayWinner();
+                bf.DisplayWinner(vsNPC, humanPlayerDino);
                 return GameState.GameOver;
             }
             else
@@ -183,7 +187,7 @@ namespace RobosVsDinosaurs
             // Check if game is over
             if (bf.GameEnded())
             {
-                bf.DisplayWinner();
+                bf.DisplayWinner(vsNPC, humanPlayerDino);
                 return GameState.GameOver;
             }
             else

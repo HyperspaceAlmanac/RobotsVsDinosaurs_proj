@@ -24,7 +24,7 @@ namespace RobosVsDinosaurs
             Random rand;
             if (Game.DEBUGRNG)
             {
-                rand = new Random(Game.RNGSEED);
+                rand = new Random(Game.RNGSEED1);
             }
             else
             {
@@ -114,23 +114,7 @@ namespace RobosVsDinosaurs
 
         public bool GameEnded()
         {
-            bool dinoArmyWipedOut = true;
-            foreach (Dinosaur dino in dinoHerd.dinos)
-            {
-                if (dino.health > 0)
-                {
-                    dinoArmyWipedOut = false;
-                }
-            }
-            bool robotArmyWipedOut = true;
-            foreach (Dinosaur dino in dinoHerd.dinos)
-            {
-                if (dino.health > 0)
-                {
-                    robotArmyWipedOut = false;
-                }
-            }
-            return robotArmyWipedOut || dinoArmyWipedOut;
+            return robotFleet.CannotContinue() || dinoHerd.CannotContinue();
         }
 
         public bool PlayerMove(bool dino)
@@ -210,7 +194,7 @@ namespace RobosVsDinosaurs
                 defender = "Robot";
             }
             Console.WriteLine("===========================");
-            Console.WriteLine($" NPC {attacker} " + (dino ? "Herd" : "Fleet") + " commander turn. ");
+            Console.WriteLine($"NPC {attacker} " + (dino ? "Herd" : "Fleet") + " commander turn. ");
             Console.WriteLine("===========================");
             DisplayArmies(dino);
 
@@ -237,22 +221,45 @@ namespace RobosVsDinosaurs
             }
             else
             {
-                return DealDamage(robotFleet.robots[combatantTwo], dinoHerd.dinos[combatantOne]);
+                return DealDamage(robotFleet.robots[combatantOne], dinoHerd.dinos[combatantTwo]);
             }
         }
 
-        public void DisplayWinner()
+        public void DisplayWinner(bool npc = false, bool dino=false)
         {
-            foreach (Dinosaur dino in dinoHerd.dinos)
+            Console.WriteLine("===============================");
+            // there cannot be tie
+            if (dinoHerd.CannotContinue())
             {
-                if (dino.health > 0)
+                Console.WriteLine("The robot fleet is victorious!");
+                if (npc)
                 {
-                    Console.WriteLine("The dinosaur herd is victorious!");
-                    return;
+                    if (dino)
+                    {
+                        Console.WriteLine("You lose!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("You Win!");
+                    }
                 }
             }
-            // Could probably check robot health here just to be sure
-            Console.WriteLine("The robot fleet is victorious!");
+            else
+            {
+                Console.WriteLine("The dinosaur herd is victorious!");
+                if (npc)
+                {
+                    if (dino)
+                    {
+                        Console.WriteLine("You Win!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("You Lose!");
+                    }
+                }
+            }
+            Console.WriteLine("===============================");
         }
     }
 }
