@@ -64,7 +64,7 @@ namespace RobosVsDinosaurs
             string input;
             while (true)
             {
-                Console.WriteLine("Please enter the move that the dinosaur should do");
+                Console.WriteLine("Please enter the move(1-3) that the dinosaur should do");
                 for (int i = 0; i < moves.Length; i++)
                 {
                     Console.WriteLine($" {i + 1}: {moves[i].name}, {moves[i].damage} damage");
@@ -87,10 +87,19 @@ namespace RobosVsDinosaurs
         public void Display()
         {
             StringBuilder sb = new StringBuilder();
-            
+
+            bool first = true;
             foreach (Move m in moves)
             {
-                sb.Append(" " + m.name);
+                if (first)
+                {
+                    sb.Append(" " + m.name +" " + m.damage);
+                    first = false;
+                }
+                else
+                {
+                    sb.Append(", " + m.name + " " + m.damage);
+                }
             }
             Console.Write($"Type: {dinoType}, health: {health}, energy: {energy}, available moves:{sb.ToString()}");
         }

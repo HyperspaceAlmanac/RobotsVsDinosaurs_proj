@@ -9,9 +9,14 @@ namespace RobosVsDinosaurs
     class Fleet
     {
         public List<Robot> robots;
+        private List<Weapon> weapons;
         public Fleet()
         {
             robots = new List<Robot>();
+            weapons = new List<Weapon>();
+            weapons.Add(new Weapon("Plasma Rifle", 150));
+            weapons.Add(new Weapon("Lazer sword", 200));
+            weapons.Add(new Weapon("Lazer Canon", 300));
         }
 
         public void PrintFleet()
@@ -35,6 +40,64 @@ namespace RobosVsDinosaurs
             }
             return true;
         }
+        // Select equipment for robot
+        public void Equip()
+        {
+            string str;
+            bool done = false;
+            int robotIndex = 0;
+            int weaponIndex = 0;
+            while (!done)
+            {
+                Console.WriteLine("Please Select the robot (1-3) to equip");
+                PrintFleet();
+                str = Console.ReadLine();
+                switch (str)
+                {
+                    case "1":
+                    case "2":
+                    case "3":
+                        robotIndex = Convert.ToInt32(str);
+                        Console.WriteLine($"{robots[robotIndex].name} has been selected");
+                        done = true;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid robot, please try again");
+                        break;
+                }
+            }
+            done = false;
+            while (!done)
+            {
+                Console.WriteLine("Please Select the weapon (1-3) to equip");
+                PrintWeapons();
+                str = Console.ReadLine();
+                switch (str)
+                {
+                    case "1":
+                    case "2":
+                    case "3":
+                        weaponIndex = Convert.ToInt32(str);
+                        Console.WriteLine($"{weapons[weaponIndex].attackType} with attack power of {weapons[weaponIndex].attackPower} has been selected");
+                        done = true;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid robot, please try again");
+                        break;
+                }
+            }
+            robots[robotIndex].weapon = weapons[weaponIndex];
+            PrintFleet();
+        }
+
+        private void PrintWeapons() {
+            Console.WriteLine("Weapons: ");
+            for (int i = 0; i < weapons.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}: {weapons[i].attackType}, Attack Power: {weapons[i].attackPower}");
+            }
+        }
+
         public int ReturnHealthyCombatant()
         {
             List<int> healthyUnits = new List<int>();

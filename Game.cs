@@ -11,6 +11,7 @@ namespace RobosVsDinosaurs
         ChooseGameMode,
         WhoGoesFirst,
         PickSide,
+        Reroll,
         TakeTurn,
         GameOver,
         Exit
@@ -54,6 +55,9 @@ namespace RobosVsDinosaurs
                     break;
                 case GameState.WhoGoesFirst:
                     newState = WhoIsFirst();
+                    break;
+                case GameState.Reroll:
+                    newState = Reroll();
                     break;
                 case GameState.TakeTurn:
                     newState = TakeTurn();
@@ -124,16 +128,29 @@ namespace RobosVsDinosaurs
                 {
                     dinoFirst = false;
                 }
-                Console.WriteLine("Initializing Game");
-                bf = new Battlefield();
-                bf.AddRoboAndDinos();
-                bf.DisplayArmies();
-                return GameState.TakeTurn;
+                return GameState.Reroll;
             }
             else
             {
                 Console.WriteLine("Invalid input, please try again");
                 return GameState.WhoGoesFirst;
+            }
+        }
+        GameState Reroll()
+        {
+            bf = new Battlefield();
+            bf.AddRoboAndDinos();
+            Console.WriteLine("Armies generated:");
+            bf.DisplayArmies();
+            Console.WriteLine("Please enter \"reroll\" to generate the armies again. Otherwise the game will proceed");
+            string str = Console.ReadLine();
+            if (str == "reroll")
+            {
+                return GameState.Reroll;
+            }
+            else
+            {
+                return GameState.TakeTurn;
             }
         }
         public GameState PickSide() {

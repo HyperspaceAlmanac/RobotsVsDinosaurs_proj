@@ -21,29 +21,21 @@ namespace RobosVsDinosaurs
         {
             // Randomly generate some stats
             // Add in rngSeed to do same values for now
-            Random rand;
-            if (Game.DEBUGRNG)
-            {
-                rand = new Random(Game.RNGSEED1);
-            }
-            else
-            {
-                rand = new Random();
-            }
             HashSet<int> roboNameHash = new HashSet<int>();
             // Adding three basic dinos and robos
 
             string[] dinoTypes = {"T-Rex", "Pterodactyl", "Stegosaurus", "Triceratops", "Brontosaurus"};
+            string[] roboTypes = { "Infantry", "Construction", "Artillery", "Vanguard", "Spec Ops" };
             for (int i = 0; i < 3; i++)
             {
-                int roboId = rand.Next(0, 1000);
+                int roboId = Game.rand.Next(0, 1000);
                 while (roboNameHash.Contains(roboId))
                 {
-                    roboId = rand.Next(0, 1000);
+                    roboId = Game.rand.Next(0, 1000);
                 }
                 roboNameHash.Add(roboId);
-                robotFleet.robots.Add(new Robot("Infantry" + roboId, rand.Next(600, 801), rand.Next(50, 100), new Weapon()));
-                dinoHerd.dinos.Add(new Dinosaur(dinoTypes[rand.Next(dinoTypes.Length)], rand.Next(800, 901), rand.Next(50, 100), rand.Next(101, 301)));
+                robotFleet.robots.Add(new Robot(roboTypes[Game.rand.Next(roboTypes.Length)] + roboId, Game.rand.Next(600, 801), 100, new Weapon()));
+                dinoHerd.dinos.Add(new Dinosaur(dinoTypes[Game.rand.Next(dinoTypes.Length)], Game.rand.Next(800, 901), 100, Game.rand.Next(101, 301)));
             }
         }
 
@@ -129,7 +121,11 @@ namespace RobosVsDinosaurs
             Console.WriteLine($"{attacker} " + (dino ? "Herd" : "Fleet") + " commander turn. ");
             Console.WriteLine("===========================");
             DisplayArmies(dino);
-            Console.WriteLine($"Please choose a {attacker} to attack with, or enter \"skip\" to skip the turn");
+            Console.WriteLine($"Please choose a {attacker}(1-3) to attack with, or enter \"skip\" to skip the turn");
+            if (!dino)
+            {
+                Console.WriteLine("Please enter \"equip\" to change weapons");
+            }
             bool inputError = false;
             // Code will return early if these are not set, but need to add default value to compile
             int combatantOne = 0;
@@ -138,6 +134,15 @@ namespace RobosVsDinosaurs
             string input = Console.ReadLine();
             switch (input)
             {
+                case "equip":
+                    if (!dino)
+                    {
+                        Console.WriteLine("Equipping robots in the fleet");
+                        robotFleet.Equip();
+                        return false;
+                    }
+                    inputError = true;
+                    break;
                 case "skip":
                     Console.WriteLine("===================");
                     Console.WriteLine($"{attacker} " + (dino ? "Herd" : "Fleet") + " turn skipped");
@@ -159,7 +164,7 @@ namespace RobosVsDinosaurs
                 Console.WriteLine("============");
                 return false;
             }
-            Console.WriteLine($"Please choose a {defender} to attack, or enter \"skip\" to skip the turn");
+            Console.WriteLine($"Please choose a {defender}(1-3) to attack, or enter \"skip\" to skip the turn");
             input = Console.ReadLine();
             switch (input)
             {

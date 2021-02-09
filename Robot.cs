@@ -11,8 +11,7 @@ namespace RobosVsDinosaurs
         public string name;
         public int health;
         int powerLevel;
-        Weapon weapon;
-        List<Weapon> weapons;
+        public Weapon weapon;
 
         public Robot(string name, int health, int powerLevel, Weapon weapon)
         {
@@ -20,11 +19,6 @@ namespace RobosVsDinosaurs
             this.health = health;
             this.powerLevel = powerLevel;
             this.weapon = weapon;
-
-            weapons = new List<Weapon>();
-            weapons.Add(new Weapon("Plasma Rifle", 150));
-            weapons.Add(new Weapon("Lazer sword", 200));
-            weapons.Add(new Weapon("Lazer Canon", 300));
         }
 
         public void Attack(Dinosaur dino)
@@ -53,7 +47,7 @@ namespace RobosVsDinosaurs
         }
         public void Display()
         {
-            Console.Write($"RoboName: {name}, health: {health}, powerLevel: {powerLevel}, weaponType: {weapon.attackType}, weaponPower: {weapon.attackPower}");
+            Console.Write($"RobotName: {name}, health: {health}, powerLevel: {powerLevel}, weaponType: {weapon.attackType}, weaponPower: {weapon.attackPower}");
         }
     }
 }
