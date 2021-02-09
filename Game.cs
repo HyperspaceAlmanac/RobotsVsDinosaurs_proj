@@ -21,6 +21,7 @@ namespace RobosVsDinosaurs
         public readonly static int RNGSEED1 = 100;
         public readonly static int RNGSEED2 = 200;
         public readonly static int RNGSEED3 = 300;
+        // Set to false for completely random values
         public readonly static bool DEBUGRNG = true;
 
         bool vsNPC;

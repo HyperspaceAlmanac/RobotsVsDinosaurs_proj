@@ -10,6 +10,7 @@ namespace RobosVsDinosaurs
     {
         public List<Dinosaur> dinos;
         private Random rand;
+        private PrehistoricDojo dojo;
 
         public Herd()
         {

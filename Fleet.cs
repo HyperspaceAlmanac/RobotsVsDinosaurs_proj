@@ -10,6 +10,7 @@ namespace RobosVsDinosaurs
     {
         public List<Robot> robots;
         private Random rand;
+        private Armory;
         public Fleet()
         {
             if (Game.DEBUGRNG)
