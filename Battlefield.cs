@@ -129,7 +129,7 @@ namespace RobosVsDinosaurs
             Console.WriteLine($"{attacker} " + (dino ? "Herd" : "Fleet") + " commander turn. ");
             Console.WriteLine("===========================");
             DisplayArmies(dino);
-            Console.WriteLine($"Please choose a {attacker} to attack with");
+            Console.WriteLine($"Please choose a {attacker} to attack with, or enter \"skip\" to skip the turn");
             bool inputError = false;
             // Code will return early if these are not set, but need to add default value to compile
             int combatantOne = 0;
@@ -138,6 +138,11 @@ namespace RobosVsDinosaurs
             string input = Console.ReadLine();
             switch (input)
             {
+                case "skip":
+                    Console.WriteLine("===================");
+                    Console.WriteLine($"{attacker} " + (dino ? "Herd" : "Fleet") + " turn skipped");
+                    Console.WriteLine("===================");
+                    return true;
                 case "1":
                 case "2":
                 case "3":
@@ -154,10 +159,15 @@ namespace RobosVsDinosaurs
                 Console.WriteLine("============");
                 return false;
             }
-            Console.WriteLine($"Please choose a {defender} to attack");
+            Console.WriteLine($"Please choose a {defender} to attack, or enter \"skip\" to skip the turn");
             input = Console.ReadLine();
             switch (input)
             {
+                case "skip":
+                    Console.WriteLine("===================");
+                    Console.WriteLine($"{attacker} " + (dino ? "Herd" : "Fleet") + " turn skipped");
+                    Console.WriteLine("===================");
+                    return true;
                 case "1":
                 case "2":
                 case "3":
